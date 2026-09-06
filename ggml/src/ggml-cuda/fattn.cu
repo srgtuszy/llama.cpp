@@ -649,7 +649,7 @@ static best_fattn_kernel ggml_cuda_get_best_fattn_kernel(const int device, const
         if (Q->ne[0] <= 128 && Q->ne[1] * gqa_ratio_eff > 8) {
             return BEST_FATTN_KERNEL_MMA_F16;
         }
-        if (Q->ne[0] <= 256 && Q->ne[1] * gqa_ratio_eff > 64) {
+        if (GGML_CUDA_CC_IS_RDNA4(cc) && Q->ne[0] <= 256 && Q->ne[1] * gqa_ratio_eff > 64) {
             return BEST_FATTN_KERNEL_MMA_F16;
         }
     }
